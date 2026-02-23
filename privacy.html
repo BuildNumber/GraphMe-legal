@@ -1,33 +1,805 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Privacy Policy — GraphMe</title>
-  <style>
-    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;max-width:900px;margin:40px auto;padding:0 16px;line-height:1.5}
-    h1,h2{line-height:1.2}
-    .meta{color:#555}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy — GraphMe</title>
+    <meta name="description" content="GraphMe Privacy Policy. We believe in transparency — your data stays yours.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #0a0e17;
+            --bg-card: #111827;
+            --bg-card-hover: #1a2236;
+            --accent: #60a5fa;
+            --accent-glow: rgba(96, 165, 250, 0.15);
+            --accent-secondary: #a78bfa;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border: rgba(148, 163, 184, 0.08);
+            --border-accent: rgba(96, 165, 250, 0.2);
+            --green: #34d399;
+            --green-glow: rgba(52, 211, 153, 0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Source Sans 3', -apple-system, sans-serif;
+            background: var(--bg-deep);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ── Grid background ── */
+        .grid-bg {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .grid-bg::before {
+            content: '';
+            position: absolute;
+            inset: -50%;
+            background-image:
+                linear-gradient(rgba(96, 165, 250, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(96, 165, 250, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            animation: gridDrift 40s linear infinite;
+        }
+
+        .grid-bg::after {
+            content: '';
+            position: absolute;
+            top: -20%;
+            right: -10%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(96, 165, 250, 0.06) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: orbFloat 20s ease-in-out infinite;
+        }
+
+        @keyframes gridDrift {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(60px, 60px); }
+        }
+
+        @keyframes orbFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-80px, 60px) scale(1.1); }
+        }
+
+        /* ── Floating math symbols ── */
+        .math-symbols {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .math-symbol {
+            position: absolute;
+            font-family: 'JetBrains Mono', monospace;
+            color: rgba(96, 165, 250, 0.06);
+            font-size: clamp(1.5rem, 3vw, 3rem);
+            animation: symbolFloat 25s ease-in-out infinite;
+            user-select: none;
+        }
+
+        .math-symbol:nth-child(1) { top: 10%; left: 5%; animation-delay: 0s; animation-duration: 28s; }
+        .math-symbol:nth-child(2) { top: 30%; right: 8%; animation-delay: -5s; animation-duration: 22s; }
+        .math-symbol:nth-child(3) { top: 60%; left: 12%; animation-delay: -10s; animation-duration: 30s; }
+        .math-symbol:nth-child(4) { top: 80%; right: 15%; animation-delay: -15s; animation-duration: 26s; }
+        .math-symbol:nth-child(5) { top: 45%; left: 85%; animation-delay: -8s; animation-duration: 24s; }
+        .math-symbol:nth-child(6) { top: 15%; left: 50%; animation-delay: -12s; animation-duration: 32s; }
+        .math-symbol:nth-child(7) { bottom: 10%; left: 40%; animation-delay: -3s; animation-duration: 27s; }
+
+        @keyframes symbolFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.4; }
+            25% { transform: translateY(-20px) rotate(5deg); opacity: 1; }
+            50% { transform: translateY(-8px) rotate(-3deg); opacity: 0.6; }
+            75% { transform: translateY(-25px) rotate(4deg); opacity: 0.9; }
+        }
+
+        /* ── Canvas for curve ── */
+        .hero-curve {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        /* ── Layout ── */
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 780px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ── Header ── */
+        header {
+            padding: 48px 0 0;
+            animation: fadeUp 0.8s ease-out;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 48px;
+        }
+
+        .brand-icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            box-shadow: 0 4px 20px rgba(96, 165, 250, 0.25);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .brand-icon::after {
+            content: '';
+            position: absolute;
+            inset: 1px;
+            border-radius: 11px;
+            background: var(--bg-deep);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .brand-icon svg {
+            position: relative;
+            z-index: 1;
+            width: 24px;
+            height: 24px;
+        }
+
+        .brand-name {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.25rem;
+            letter-spacing: -0.01em;
+            color: var(--text-primary);
+        }
+
+        .brand-name span {
+            color: var(--accent);
+        }
+
+        .hero-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            background: var(--accent-glow);
+            border: 1px solid var(--border-accent);
+            border-radius: 100px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 24px;
+        }
+
+        .hero-label::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--green);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--green);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+        }
+
+        h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(2.5rem, 6vw, 3.75rem);
+            line-height: 1.1;
+            letter-spacing: -0.025em;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
+        h1 em {
+            font-style: italic;
+            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-sub {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 540px;
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        /* ── Divider ── */
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-accent), transparent);
+            margin: 48px 0;
+        }
+
+        /* ── Shield section ── */
+        .shield-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin: 40px 0;
+        }
+
+        .shield-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px 24px;
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: fadeUp 0.6s ease-out both;
+        }
+
+        .shield-card:nth-child(1) { animation-delay: 0.1s; }
+        .shield-card:nth-child(2) { animation-delay: 0.2s; }
+        .shield-card:nth-child(3) { animation-delay: 0.3s; }
+        .shield-card:nth-child(4) { animation-delay: 0.4s; }
+
+        .shield-card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--border-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), 0 0 0 1px var(--border-accent);
+        }
+
+        .shield-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+            font-size: 18px;
+            background: var(--green-glow);
+            border: 1px solid rgba(52, 211, 153, 0.15);
+        }
+
+        .shield-card h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1rem;
+            font-weight: 400;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .shield-card p {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* ── Content sections ── */
+        .section {
+            margin-bottom: 48px;
+            animation: fadeUp 0.6s ease-out both;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        .section-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--accent);
+            background: var(--accent-glow);
+            border: 1px solid var(--border-accent);
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            letter-spacing: 0.05em;
+        }
+
+        h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            letter-spacing: -0.01em;
+        }
+
+        .section p {
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            font-size: 1rem;
+        }
+
+        .section p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ── Highlight box ── */
+        .highlight-box {
+            background: linear-gradient(135deg, var(--green-glow), rgba(52, 211, 153, 0.04));
+            border: 1px solid rgba(52, 211, 153, 0.15);
+            border-radius: 16px;
+            padding: 28px 28px 28px 24px;
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            margin: 32px 0;
+        }
+
+        .highlight-box .icon {
+            font-size: 24px;
+            flex-shrink: 0;
+            line-height: 1;
+            margin-top: 2px;
+        }
+
+        .highlight-box p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .highlight-box strong {
+            color: var(--green);
+            font-weight: 600;
+        }
+
+        /* ── Table of what we don't collect ── */
+        .data-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 24px 0;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .data-table th {
+            background: var(--bg-card);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            padding: 14px 20px;
+            text-align: left;
+        }
+
+        .data-table td {
+            padding: 14px 20px;
+            font-size: 0.925rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border);
+        }
+
+        .data-table tr:hover td {
+            background: rgba(255, 255, 255, 0.01);
+        }
+
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 500;
+            padding: 4px 12px;
+            border-radius: 100px;
+        }
+
+        .status-none {
+            color: var(--green);
+            background: var(--green-glow);
+            border: 1px solid rgba(52, 211, 153, 0.2);
+        }
+
+        .status-none::before {
+            content: '✓';
+            font-size: 0.65rem;
+        }
+
+        /* ── Contact section ── */
+        .contact-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            text-align: center;
+            margin: 40px 0;
+            transition: border-color 0.3s;
+        }
+
+        .contact-card:hover {
+            border-color: var(--border-accent);
+        }
+
+        .contact-card h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+        }
+
+        .contact-card p {
+            color: var(--text-muted);
+            font-size: 0.925rem;
+            margin-bottom: 20px;
+        }
+
+        .contact-card a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent);
+            text-decoration: none;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            padding: 10px 24px;
+            border: 1px solid var(--border-accent);
+            border-radius: 100px;
+            transition: all 0.3s;
+        }
+
+        .contact-card a:hover {
+            background: var(--accent-glow);
+            box-shadow: 0 0 20px rgba(96, 165, 250, 0.1);
+        }
+
+        /* ── Footer ── */
+        footer {
+            padding: 40px 0 48px;
+            text-align: center;
+        }
+
+        .footer-line {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border), transparent);
+            margin-bottom: 32px;
+        }
+
+        .footer-meta {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 24px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .footer-meta span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .footer-dot {
+            width: 3px;
+            height: 3px;
+            background: var(--text-muted);
+            border-radius: 50%;
+            opacity: 0.5;
+        }
+
+        /* ── Animations ── */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 600px) {
+            .container {
+                padding: 0 20px;
+            }
+
+            header {
+                padding-top: 32px;
+            }
+
+            .shield-section {
+                grid-template-columns: 1fr;
+            }
+
+            .highlight-box {
+                padding: 20px;
+            }
+
+            .data-table th,
+            .data-table td {
+                padding: 12px 14px;
+                font-size: 0.85rem;
+            }
+
+            .footer-meta {
+                flex-direction: column;
+                align-items: center;
+                gap: 8px;
+            }
+
+            .footer-dot {
+                display: none;
+            }
+        }
+    </style>
 </head>
 <body>
-  <h1>Privacy Policy — GraphMe</h1>
-  <p class="meta">Last updated: 2026-02-23</p>
 
-  <p>GraphMe does not collect, store, or share personal data.</p>
+    <!-- Background layers -->
+    <div class="grid-bg"></div>
+    <div class="math-symbols">
+        <span class="math-symbol">∫</span>
+        <span class="math-symbol">π</span>
+        <span class="math-symbol">∑</span>
+        <span class="math-symbol">∞</span>
+        <span class="math-symbol">Δ</span>
+        <span class="math-symbol">√</span>
+        <span class="math-symbol">θ</span>
+    </div>
+    <canvas class="hero-curve" id="curveCanvas"></canvas>
 
-  <h2>Data collection</h2>
-  <ul>
-    <li>No account creation</li>
-    <li>No analytics tracking</li>
-    <li>No advertising identifiers</li>
-    <li>No data sold or shared with third parties</li>
-  </ul>
+    <div class="container">
 
-  <h2>Permissions</h2>
-  <p>If the app requests permissions, they are used only to provide the app’s features on your device.</p>
+        <!-- Header -->
+        <header>
+            <div class="brand">
+                <div class="brand-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="url(#brandGrad)" stroke-width="2" stroke-linecap="round">
+                        <defs>
+                            <linearGradient id="brandGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#60a5fa"/>
+                                <stop offset="100%" stop-color="#a78bfa"/>
+                            </linearGradient>
+                        </defs>
+                        <path d="M3 20 Q8 4 12 12 Q16 20 21 4"/>
+                    </svg>
+                </div>
+                <div class="brand-name">Graph<span>Me</span></div>
+            </div>
 
-  <h2>Contact</h2>
-  <p>If you have questions, contact: <a href="mailto:your-email@domain.com">your-email@domain.com</a></p>
+            <div class="hero-label">Privacy Policy</div>
+            <h1>Your data stays <em>yours.</em></h1>
+            <p class="hero-sub">GraphMe is designed with privacy at its core. We don't collect, track, or share your personal information. Simple as that.</p>
+        </header>
+
+        <div class="divider"></div>
+
+        <!-- Shield cards -->
+        <div class="shield-section">
+            <div class="shield-card">
+                <div class="shield-icon">🔒</div>
+                <h3>No Account Required</h3>
+                <p>Use every feature without creating an account or signing in.</p>
+            </div>
+            <div class="shield-card">
+                <div class="shield-icon">📊</div>
+                <h3>No Analytics</h3>
+                <p>Zero tracking scripts. No usage analytics. No telemetry.</p>
+            </div>
+            <div class="shield-card">
+                <div class="shield-icon">🚫</div>
+                <h3>No Ads</h3>
+                <p>No advertising SDKs. No ad identifiers collected or shared.</p>
+            </div>
+            <div class="shield-card">
+                <div class="shield-icon">🛡️</div>
+                <h3>No Third Parties</h3>
+                <p>Your data is never sold, shared, or transmitted to anyone.</p>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Section 1 -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">01</div>
+                <h2>Information We Collect</h2>
+            </div>
+            <p>The short answer: <strong>none</strong>. GraphMe operates entirely on your device. All graphs, equations, and calculations are processed locally and are never sent to any server.</p>
+        </div>
+
+        <!-- Data table -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">02</div>
+                <h2>Data Practices Overview</h2>
+            </div>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Data Type</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Personal information</td>
+                        <td><span class="status status-none">Not collected</span></td>
+                    </tr>
+                    <tr>
+                        <td>Location data</td>
+                        <td><span class="status status-none">Not collected</span></td>
+                    </tr>
+                    <tr>
+                        <td>Usage analytics</td>
+                        <td><span class="status status-none">Not collected</span></td>
+                    </tr>
+                    <tr>
+                        <td>Advertising identifiers</td>
+                        <td><span class="status status-none">Not collected</span></td>
+                    </tr>
+                    <tr>
+                        <td>Device identifiers</td>
+                        <td><span class="status status-none">Not collected</span></td>
+                    </tr>
+                    <tr>
+                        <td>Crash reports</td>
+                        <td><span class="status status-none">Not collected</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Section 3 -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">03</div>
+                <h2>Permissions</h2>
+            </div>
+            <p>GraphMe may request device permissions solely to deliver its core functionality. These permissions are used only on your device and never result in data being collected or transmitted externally.</p>
+        </div>
+
+        <!-- Section 4 -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">04</div>
+                <h2>Children's Privacy</h2>
+            </div>
+            <p>Because GraphMe does not collect any data, it is safe for users of all ages. We comply with COPPA and do not knowingly collect information from children under 13 — or anyone else.</p>
+        </div>
+
+        <!-- Section 5 -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">05</div>
+                <h2>Changes to This Policy</h2>
+            </div>
+            <p>If our data practices ever change, this page will be updated accordingly. Any material changes will be reflected with an updated revision date below.</p>
+        </div>
+
+        <!-- Highlight -->
+        <div class="highlight-box">
+            <span class="icon">🟢</span>
+            <p><strong>Bottom line:</strong> GraphMe is built to work for you, not to work on you. Your mathematical explorations are your own — we have no interest in watching over your shoulder.</p>
+        </div>
+
+        <!-- Contact -->
+        <div class="contact-card">
+            <h3>Questions?</h3>
+            <p>If anything about this policy is unclear, don't hesitate to reach out.</p>
+            <a href="mailto:contact@graphme.app">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4L12 13 2 4"/>
+                </svg>
+                contact@graphme.app
+            </a>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-line"></div>
+            <div class="footer-meta">
+                <span>GraphMe</span>
+                <span class="footer-dot"></span>
+                <span>Last updated: February 23, 2026</span>
+                <span class="footer-dot"></span>
+                <span>v1.0</span>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- Animated sine curve canvas -->
+    <script>
+        const canvas = document.getElementById('curveCanvas');
+        const ctx = canvas.getContext('2d');
+        let time = 0;
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const curves = [
+                { amp: 80, freq: 0.003, speed: 0.008, yOff: 0.35, color: 'rgba(96, 165, 250, 0.04)' },
+                { amp: 60, freq: 0.004, speed: 0.012, yOff: 0.55, color: 'rgba(167, 139, 250, 0.03)' },
+                { amp: 100, freq: 0.002, speed: 0.006, yOff: 0.75, color: 'rgba(52, 211, 153, 0.025)' },
+            ];
+
+            curves.forEach(curve => {
+                ctx.beginPath();
+                ctx.strokeStyle = curve.color;
+                ctx.lineWidth = 2;
+
+                for (let x = 0; x < canvas.width; x += 2) {
+                    const y = canvas.height * curve.yOff +
+                              Math.sin(x * curve.freq + time * curve.speed) * curve.amp +
+                              Math.sin(x * curve.freq * 1.5 + time * curve.speed * 0.7) * (curve.amp * 0.3);
+
+                    if (x === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                }
+
+                ctx.stroke();
+            });
+
+            time++;
+            requestAnimationFrame(draw);
+        }
+
+        window.addEventListener('resize', resize);
+        resize();
+        draw();
+    </script>
+
 </body>
 </html>
